@@ -2,10 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../shared/services/auth.service';
 import { CurrentUserInterface } from '../../shared/types/currentUser.interface';
 import { registerAction, registerFailureAction, registerSuccessAction } from '../actions/register.action';
-import { PersistanceService } from '../../services/persistance.service';
+import { PersistanceService } from '../../../shared/services/persistance.service';
 import { Router } from '@angular/router';
 
 @Injectable()

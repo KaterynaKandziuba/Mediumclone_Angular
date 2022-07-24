@@ -1,5 +1,5 @@
-<div *ngIf="isLoading$ | async">Loading...</div>
-<div *ngIf="error$ | async">Some error happened...</div>
+<mc-loading *ngIf="isLoading$ | async"></mc-loading>
+<mc-error-message *ngIf="error$ | async"></mc-error-message>
 
 <div *ngIf="feed$ | async">
     <!-- elvis operator - перевіряє, що поле дійсно присутнє -->
@@ -22,5 +22,12 @@
             HERE IS LIST OF TAGS
         </a>
     </div>
-    PAGINATION
+    <!-- ? not nececssary, because pagination is inside the module -->
+    <!-- pagination is stateless -->
+    <mc-pagination 
+        [total]="(feed$ | async)?.articlesCount" 
+        [limit]="limit"
+        [url]="baseUrl"
+        [currentPage]="currentPage"
+    ></mc-pagination>
 </div>

@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { CurrentUserInterface } from '../shared/types/currentUser.interface';
-import { RegisterRequestInterface } from '../shared/types/registerRequest.interface';
+import { CurrentUserInterface } from '../../auth/shared/types/currentUser.interface';
+import { RegisterRequestInterface } from '../../auth/shared/types/registerRequest.interface';
 import { environment } from '../../../environments/environment.prod';
-import { AuthResponseInterface } from '../types/authResponce.interface';
-import { LoginRequestInterface } from '../shared/types/loginRequest.interface';
+import { AuthResponseInterface } from '../../auth/types/authResponce.interface';
+import { LoginRequestInterface } from '../../auth/shared/types/loginRequest.interface';
 
 // makes class available to be injected as dependency
 @Injectable()

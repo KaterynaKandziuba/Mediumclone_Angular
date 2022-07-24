@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
-import { PersistanceService } from '../../services/persistance.service';
+import { AuthService } from '../../../shared/services/auth.service';
+import { PersistanceService } from '../../../shared/services/persistance.service';
 import { CurrentUserInterface } from '../../shared/types/currentUser.interface';
 import { getCurrentUserAction, getCurrentUserFailureAction, getCurrentUserSuccessAction } from '../actions/getCurrentUser.action';
 

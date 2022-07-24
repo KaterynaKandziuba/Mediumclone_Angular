@@ -8,10 +8,12 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
-import { PersistanceService } from './auth/services/persistance.service';
+import { PersistanceService } from './shared/services/persistance.service';
 import { AuthInterceptor } from './auth/shared/services/authInterceptor.service';
 import { GlobalFeedModule } from './globalFeed/globalFeed.module';
 import { TopBarModule } from './shared/modules/topBar/topBar.module';
+// library helps to create redux actions
+import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +23,10 @@ import { TopBarModule } from './shared/modules/topBar/topBar.module';
     AppRoutingModule,
     AuthModule,
     EffectsModule.forRoot([]),
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({
+      router: routerReducer,
+    }),
+    StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // кількість екшенів, які ми хочемо показувати в наших девтулз
       logOnly: environment.production, // лог на продакшині буде тільки рід-онлі

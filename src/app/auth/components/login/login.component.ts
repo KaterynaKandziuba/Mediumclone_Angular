@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../shared/services/auth.service';
 import { AppStateInterface } from '../../shared/types/appState.interface';
 import { loginAction } from '../../store/actions/login.action';
 import { validationErrorsSelector } from '../../store/selectors';
