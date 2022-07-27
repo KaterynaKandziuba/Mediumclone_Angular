@@ -12,7 +12,7 @@ import { PopularTagsStateInterface } from "../types/PopularTagsState.interface";
     templateUrl: './popularTags.component.html'
 })
 export class PopularTagsComponent implements OnInit{
-    popularTags$: Observable<PopularTagsType[]>;
+    popularTags$: Observable<PopularTagsType[] | null>;
     isLoading$: Observable<boolean>;
     error$: Observable<string | null>;
 
