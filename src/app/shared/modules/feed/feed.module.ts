@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { LoadingModule } from '../loading/loading.module';
 import { ErrorMessageModule } from '../errorMessage copy/errorMessage.module';
 import { PaginationModule } from '../pagination/pagination.module';
+import { TagListModule } from '../tagList/lagList.module';
 
 // немає рута, бо це шеребл компонент
 @NgModule({
@@ -20,7 +21,8 @@ import { PaginationModule } from '../pagination/pagination.module';
         RouterModule,
         ErrorMessageModule,
         LoadingModule,
-        PaginationModule
+        PaginationModule,
+        TagListModule
     ],
     declarations: [FeedComponent],
     // бо ми хочемо рендерити компонент в глобальному фіді

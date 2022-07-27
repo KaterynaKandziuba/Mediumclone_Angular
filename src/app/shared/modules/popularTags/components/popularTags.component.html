@@ -1,0 +1,6 @@
+<div>
+    Popular Tags
+    <div *ngIf="isLoading$ | async">Loading tags...</div>
+    <div *ngIf="error$ | async">{{ error$ | async}}</div>
+    <mc-tag-list [tags]="popularTags$ | async"></mc-tag-list>
+</div>
