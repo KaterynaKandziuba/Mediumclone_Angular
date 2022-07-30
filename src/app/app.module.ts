@@ -14,6 +14,8 @@ import { GlobalFeedModule } from './globalFeed/globalFeed.module';
 import { TopBarModule } from './shared/modules/topBar/topBar.module';
 // library helps to create redux actions
 import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { YourFeedModule } from './yourFeed/yourFeed.module';
+import { TagFeedModule } from './tagFeed/tagFeed.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,7 +35,9 @@ import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
     }),
     TopBarModule,
     HttpClientModule,
-    GlobalFeedModule
+    GlobalFeedModule,
+    YourFeedModule,
+    TagFeedModule
   ],
   providers: [
     // ніде автоматично не реєструється, тому нам необхідно додавати його в той модуль,

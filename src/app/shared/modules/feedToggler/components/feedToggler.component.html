@@ -1,0 +1,26 @@
+<div class="feed-toggle">
+    <ul class="nav nav-pills outline-active">
+        <li class="nav-item" *ngIf="isLoggedIn$ | async">
+            <a [routerLink]="['/feed']" class="nav-link" routerLinkActive="active">
+                Your feed
+            </a>
+        </li>
+        <li class="nav-item">
+            <a [routerLink]="['/']" class="nav-link" 
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                Global feed
+            </a>
+        </li>
+        <li class="nav-item" *ngIf="tagNameProps">
+            <!-- error when clicking on the present tag -->
+            <!-- bug of angular: dynamiv active route is not recognized -->
+            <a [routerLink]="['/tags, tagNameProps']" class="nav-link" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <!-- [routerLinkActiveOptions]='{__hack__: tagNameProps}' -->
+                <i class="ion-pound"></i>
+                {{ tagNameProps }}
+            </a>
+        </li>
+    </ul>
+</div>

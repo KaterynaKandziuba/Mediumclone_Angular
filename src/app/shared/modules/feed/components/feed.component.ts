@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { getFeedAction } from '../store/actions/getFeed.action';
 import { Observable, Subscription } from 'rxjs';
@@ -12,7 +12,7 @@ import {parseUrl, stringify} from 'query-string'
     selector: 'mc-feed',
     templateUrl: './feed.component.html',
 })
-export class FeedComponent implements OnInit, OnDestroy{
+export class FeedComponent implements OnInit, OnDestroy, OnChanges{
     @Input('apiUrl') apiUrlProps: string;
 
     isLoading$: Observable<boolean>;
@@ -35,6 +35,18 @@ export class FeedComponent implements OnInit, OnDestroy{
     ngOnDestroy(): void {
         // most common memory leak
         this.queryParamsSubscription.unsubscribe();
+    }
+
+    // checks data-bound properties
+    ngOnChanges(changes: SimpleChanges): void {
+        // just for case when we changed api url
+        const isApiChanged = !changes['apiUrlProps'].firstChange && changes['apiUrlProps'].currentValue !== changes['apiUrlProps'].previousValue;
+        console.log(changes)
+        console.log(isApiChanged)
+
+        if(isApiChanged){
+            this.fetchFeed();
+        }
     }
 
     initializeValues(): void {
