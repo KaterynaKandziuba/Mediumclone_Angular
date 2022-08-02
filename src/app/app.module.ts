@@ -16,6 +16,7 @@ import { TopBarModule } from './shared/modules/topBar/topBar.module';
 import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { YourFeedModule } from './yourFeed/yourFeed.module';
 import { TagFeedModule } from './tagFeed/tagFeed.module';
+import { ArticleModule } from './article/article.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,7 +38,8 @@ import { TagFeedModule } from './tagFeed/tagFeed.module';
     HttpClientModule,
     GlobalFeedModule,
     YourFeedModule,
-    TagFeedModule
+    TagFeedModule,
+    ArticleModule
   ],
   providers: [
     // ніде автоматично не реєструється, тому нам необхідно додавати його в той модуль,
