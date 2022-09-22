@@ -11,17 +11,17 @@ export const articleFeatureSelector = createFeatureSelector<
 
 // якщо ми пишемо селектор для модуля, що всередині,
 // то ми тількі всередині можемо його використовувати
-export const isLoadingSelector = createSelector(
+export const IsLoadingSelector = createSelector(
   articleFeatureSelector,
   (articleState: ArticleStateInterface) => articleState.isLoading
 );
 
-export const errorSelector = createSelector(
+export const ErrorSelector = createSelector(
   articleFeatureSelector,
     (articleState: ArticleStateInterface) => articleState.error
 );
 
-export const feedSelector = createSelector(
+export const ArticleSelector = createSelector(
   articleFeatureSelector,
     (articleState: ArticleStateInterface) => articleState.data
 );
