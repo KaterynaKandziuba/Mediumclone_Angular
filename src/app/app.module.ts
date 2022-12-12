@@ -17,6 +17,7 @@ import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { YourFeedModule } from './yourFeed/yourFeed.module';
 import { TagFeedModule } from './tagFeed/tagFeed.module';
 import { ArticleModule } from './article/article.module';
+import { CreateArticleModule } from './createArticle/createArticle.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,7 +40,9 @@ import { ArticleModule } from './article/article.module';
     GlobalFeedModule,
     YourFeedModule,
     TagFeedModule,
-    ArticleModule
+    CreateArticleModule,
+    // ставимо перед ArticleModule, щоб не було колізії зі шляхами
+    ArticleModule,
   ],
   providers: [
     // ніде автоматично не реєструється, тому нам необхідно додавати його в той модуль,
@@ -49,8 +52,8 @@ import { ArticleModule } from './article/article.module';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       // цей запис, щоб показати, що в нас мультипровайдер
-      multi: true
-    }
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

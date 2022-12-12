@@ -23,6 +23,7 @@ export class DeleteArticleEffect {
           map((article: ArticleInterface) => {
             // ось тут ми оновили стор
             // effect automatically dispatches this action
+            // switchMap returns dispatch action
             return deleteArticleSuccessAction();
           }),
           catchError(() => {

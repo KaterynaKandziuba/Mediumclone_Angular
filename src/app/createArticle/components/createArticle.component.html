@@ -1,0 +1,2 @@
+<mc-article-form [initialValues]="creationInitialValues" [isSubmitting]="isSubmitting$ | async"
+    [errors]="backendErrors$ | async" (articleSubmit)="onOutterSubmit($event)"></mc-article-form>
