@@ -3,6 +3,7 @@ import { FeedStateInterface } from '../../../shared/modules/feed/types/feedSatat
 import { PopularTagsStateInterface } from 'src/app/shared/modules/popularTags/types/PopularTagsState.interface';
 import { ArticleStateInterface } from 'src/app/article/types/articleState.interface';
 import { CreateArticleStateInterface } from 'src/app/createArticle/types/createArticleState.interface';
+import { EditArticleStateInterface } from 'src/app/editArticle/types/editArticleState.interface';
 
 // загальний інтерфейс усього стану
 export interface AppStateInterface {
@@ -11,4 +12,5 @@ export interface AppStateInterface {
   popularTags: PopularTagsStateInterface;
   article: ArticleStateInterface;
   createArticle: CreateArticleStateInterface;
+  editArticle: EditArticleStateInterface;
 }

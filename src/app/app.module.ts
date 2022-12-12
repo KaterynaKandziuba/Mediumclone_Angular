@@ -18,6 +18,7 @@ import { YourFeedModule } from './yourFeed/yourFeed.module';
 import { TagFeedModule } from './tagFeed/tagFeed.module';
 import { ArticleModule } from './article/article.module';
 import { CreateArticleModule } from './createArticle/createArticle.module';
+import { EditArticleModule } from './editArticle/createArticle.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,6 +44,7 @@ import { CreateArticleModule } from './createArticle/createArticle.module';
     CreateArticleModule,
     // ставимо перед ArticleModule, щоб не було колізії зі шляхами
     ArticleModule,
+    EditArticleModule,
   ],
   providers: [
     // ніде автоматично не реєструється, тому нам необхідно додавати його в той модуль,
