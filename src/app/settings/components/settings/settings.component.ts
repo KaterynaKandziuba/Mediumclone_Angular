@@ -58,6 +58,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
       email: this.currentUser.email,
       password: null,
     });
+
+    this.form.get('username').disable();
   }
 
   submit(): void {

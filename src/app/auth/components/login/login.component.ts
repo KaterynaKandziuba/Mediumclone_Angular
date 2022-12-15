@@ -41,10 +41,7 @@ export class LoginComponent implements OnInit {
       this.backendErrors$ = this.store.pipe(select(validationErrorsSelector))
 
       // is updating, but app is not
-      this.backendErrors$.subscribe((errors: BackendErrorsInterface) => {
-        console.log("Backend errors: ")
-        console.log(errors)
-      })
+      this.backendErrors$.subscribe((errors: BackendErrorsInterface) => {});
   }
 
   initializeForm(): void {
