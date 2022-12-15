@@ -20,14 +20,14 @@ const articleReducer = createReducer(
   ),
 
   // reducer прийому даних
-  on(getArticleSuccessAction, (state, action): ArticleStateInterface => {
-    console.log('In reducer -> success article', action.article);
-    return {
+  on(
+    getArticleSuccessAction,
+    (state, action): ArticleStateInterface => ({
       ...state,
       isLoading: false,
       data: action.article,
-    };
-  }),
+    })
+  ),
 
   on(
     getArticleFailureAction,

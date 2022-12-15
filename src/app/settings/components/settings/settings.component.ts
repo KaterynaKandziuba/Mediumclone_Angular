@@ -70,7 +70,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
         currentUserInput: currentUserInput,
       })
     );
-    console.log(currentUserInput);
   }
 
   logout(): void {
