@@ -6,6 +6,7 @@ import { RegisterRequestInterface } from '../../auth/shared/types/registerReques
 import { environment } from '../../../environments/environment.prod';
 import { AuthResponseInterface } from '../../auth/types/authResponce.interface';
 import { LoginRequestInterface } from '../../auth/shared/types/loginRequest.interface';
+import { CurrentUserInputInterface } from '../types/currentUserInput.interface';
 
 // makes class available to be injected as dependency
 @Injectable()
@@ -18,16 +19,29 @@ export class AuthService {
 
   register(data: RegisterRequestInterface): Observable<CurrentUserInterface> {
     const url = environment.apiUrl + '/users';
-    return this.http.post<AuthResponseInterface>(url, {user: data}).pipe(map(this.getUser));
+    return this.http
+      .post<AuthResponseInterface>(url, { user: data })
+      .pipe(map(this.getUser));
   }
 
   login(data: LoginRequestInterface): Observable<CurrentUserInterface> {
     const url = environment.apiUrl + '/users/login';
-    return this.http.post<AuthResponseInterface>(url, {user: data}).pipe(map(this.getUser));
+    return this.http
+      .post<AuthResponseInterface>(url, { user: data })
+      .pipe(map(this.getUser));
   }
 
-  getCurrentUser(): Observable<CurrentUserInterface>{
-    const url = environment.apiUrl + '/user'
-    return this.http.get<AuthResponseInterface>(url).pipe(map(this.getUser))
+  getCurrentUser(): Observable<CurrentUserInterface> {
+    const url = environment.apiUrl + '/user';
+    return this.http.get<AuthResponseInterface>(url).pipe(map(this.getUser));
+  }
+
+  updateCurrentUser(
+    currentUserInput: CurrentUserInputInterface
+  ): Observable<CurrentUserInterface> {
+    const url = environment.apiUrl + '/user';
+    return this.http
+      .put(url, { user: currentUserInput })
+      .pipe(map(this.getUser));
   }
 }

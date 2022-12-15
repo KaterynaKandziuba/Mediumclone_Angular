@@ -10,28 +10,37 @@ const initialState: ArticleStateInterface = {
 }
 
 const articleReducer = createReducer(
-    initialState,
-    on(getArticleAction, (state): ArticleStateInterface => ({
-        ...state,
-        isLoading: true
-    })),
+  initialState,
+  on(
+    getArticleAction,
+    (state): ArticleStateInterface => ({
+      ...state,
+      isLoading: true,
+    })
+  ),
 
-    // reducer прийому даних
-    on(getArticleSuccessAction, (state, action): ArticleStateInterface => ({
-        ...state,
-        isLoading: false,
-        data: action.article
-    })),
+  // reducer прийому даних
+  on(getArticleSuccessAction, (state, action): ArticleStateInterface => {
+    console.log('In reducer -> success article', action.article);
+    return {
+      ...state,
+      isLoading: false,
+      data: action.article,
+    };
+  }),
 
-    on(getArticleFailureAction, (state): ArticleStateInterface => ({
-        ...state,
-        isLoading: false
-    })),
+  on(
+    getArticleFailureAction,
+    (state): ArticleStateInterface => ({
+      ...state,
+      isLoading: false,
+    })
+  ),
 
-    // якщо ми переходимо за посиланням, то онулюємо початковий стейт
-    // якщо цього не буде, то ми постійно будемо отримувати той самий пост, навіть клікаючи на інші пости
-    on(routerNavigationAction, (): ArticleStateInterface => initialState)
-)
+  // якщо ми переходимо за посиланням, то онулюємо початковий стейт
+  // якщо цього не буде, то ми постійно будемо отримувати той самий пост, навіть клікаючи на інші пости
+  on(routerNavigationAction, (): ArticleStateInterface => initialState)
+);
 
 export function reducers(state: ArticleStateInterface, action: Action){
     return articleReducer(state, action)

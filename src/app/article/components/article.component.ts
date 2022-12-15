@@ -1,18 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { combineLatest, forkJoin, map, Observable, Subscription } from 'rxjs';
+import { combineLatest, map, Observable, Subscription } from 'rxjs';
 import { AppStateInterface } from 'src/app/auth/shared/types/appState.interface';
 import { ArticleInterface } from 'src/app/auth/shared/types/article.interface';
 import { CurrentUserInterface } from 'src/app/auth/shared/types/currentUser.interface';
-import { CurrentUserSelector } from 'src/app/auth/store/selectors';
 import { deleteArticleAction } from '../store/actions/deleteArticle.action';
 import { getArticleAction } from '../store/actions/getArticle.action';
-import {
-  ArticleSelector,
-  ErrorSelector,
-  IsLoadingSelector,
-} from '../store/selectors';
+import { ErrorSelector, IsLoadingSelector } from '../store/selectors';
 @Component({
   selector: 'mc-article',
   templateUrl: './article.component.html',
@@ -68,7 +63,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
       .pipe(select((store: AppStateInterface) => store.article.data))
       .subscribe((article: ArticleInterface | null) => {
         this.article = article;
-        console.log('THIS ARTICLE', this.article);
       });
   }
 

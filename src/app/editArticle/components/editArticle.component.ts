@@ -45,7 +45,7 @@ export class EditArticleComponent implements OnInit {
           title: article.title,
           description: article.description,
           body: article.body,
-          tagList: [],
+          tagList: article.tagList,
         };
       })
     );

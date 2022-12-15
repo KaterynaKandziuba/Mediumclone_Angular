@@ -13,6 +13,8 @@ import { LoginEffect } from './store/effects/loginEffect';
 import { RegisterEffect } from './store/effects/registerEffect';
 import { reducer } from './store/reducers';
 import { GetCurrentUserEffect } from './store/effects/getCurrentUserEffect';
+import { UpdateCurrentUserEffect } from './store/effects/updateCurrentUser.effect';
+import { LogoutEffect } from './store/effects/logout.effect';
 
 
 const routes: Routes = [
@@ -35,11 +37,17 @@ const routes: Routes = [
     ReactiveFormsModule,
     StoreModule.forFeature('auth', reducer),
     // в цьому модулі ефекти оновлюють наш стор
-    EffectsModule.forFeature([RegisterEffect, LoginEffect, GetCurrentUserEffect]),
-    BackendErrorMessagesModule
+    EffectsModule.forFeature([
+      RegisterEffect,
+      LoginEffect,
+      GetCurrentUserEffect,
+      UpdateCurrentUserEffect,
+      LogoutEffect,
+    ]),
+    BackendErrorMessagesModule,
   ],
   // adds injectable objects
-  providers: [ AuthService, PersistanceService ],
+  providers: [AuthService, PersistanceService],
   // які компоненти ми хочемо зареєструвати
   declarations: [RegisterComponent, LoginComponent],
 })

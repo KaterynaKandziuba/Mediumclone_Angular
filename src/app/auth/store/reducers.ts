@@ -3,7 +3,8 @@ import { createReducer, on, Action } from '@ngrx/store';
 import { registerAction, registerSuccessAction, registerFailureAction } from './actions/register.action';
 import { loginAction, loginFailureAction, loginSuccessAction } from './actions/login.action';
 import { getCurrentUserAction, getCurrentUserSuccessAction, getCurrentUserFailureAction } from './actions/getCurrentUser.action';
-import { CurrentUserInterface } from '../shared/types/currentUser.interface';
+import { updateCurrentUserSuccessAction } from './actions/updateCurrentUser.action';
+import { logoutAction } from './actions/sync.action';
 
 // слідкують за екшенами та змінюють store
 
@@ -23,7 +24,7 @@ const authReducer = createReducer(
     (state): AuthStateInterface => ({
       ...state,
       isSubmiting: true,
-      validationErrors: null // це потрібно, щоб спочатку видалити ті помилки, які вже в нас є
+      validationErrors: null, // це потрібно, щоб спочатку видалити ті помилки, які вже в нас є
     })
   ),
   on(
@@ -32,7 +33,7 @@ const authReducer = createReducer(
       ...state,
       isSubmiting: false,
       isLoggedIn: true,
-      currentUser: action.currentUser
+      currentUser: action.currentUser,
     })
   ),
   on(
@@ -40,9 +41,9 @@ const authReducer = createReducer(
     (state, action): AuthStateInterface => ({
       ...state,
       isSubmiting: false,
-      validationErrors: action.errors
+      validationErrors: action.errors,
     })
-  ), 
+  ),
   on(
     loginAction,
     (state: AuthStateInterface): AuthStateInterface => ({
@@ -56,7 +57,7 @@ const authReducer = createReducer(
       ...state,
       isSubmiting: false,
       isLoggedIn: true,
-      currentUser: action.currentUser
+      currentUser: action.currentUser,
     })
   ),
   on(
@@ -64,26 +65,47 @@ const authReducer = createReducer(
     (state, action): AuthStateInterface => ({
       ...state,
       isSubmiting: false,
-      validationErrors: action.errors
+      validationErrors: action.errors,
     })
   ),
-   on(getCurrentUserAction, (state): AuthStateInterface => ({
-    ...state,
-    isLoading: true,
-   })),
-   on(getCurrentUserSuccessAction, (state, action): AuthStateInterface => ({
-    ...state,
-    isLoading: false,
-    isLoggedIn: true,
-    currentUser: action.currentUser
-   })),
-   on(getCurrentUserFailureAction, (state, action): AuthStateInterface => ({
-    ...state,
-    isLoading: false,
-    isLoggedIn: false,
-    // про всяк випадок, щоб знати, що юзер занульований
-    currentUser: null
-   })),
+  on(
+    getCurrentUserAction,
+    (state): AuthStateInterface => ({
+      ...state,
+      isLoading: true,
+    })
+  ),
+  on(
+    getCurrentUserSuccessAction,
+    (state, action): AuthStateInterface => ({
+      ...state,
+      isLoading: false,
+      isLoggedIn: true,
+      currentUser: action.currentUser,
+    })
+  ),
+  on(
+    getCurrentUserFailureAction,
+    (state): AuthStateInterface => ({
+      ...state,
+      isLoading: false,
+      isLoggedIn: false,
+      // про всяк випадок, щоб знати, що юзер занульований
+      currentUser: null,
+    })
+  ),
+  on(
+    // ми повністю оновлюватимемо стейт відповідно до екшенів на сторінці налаштувань
+    updateCurrentUserSuccessAction,
+    (state, action): AuthStateInterface => ({
+      ...state,
+      currentUser: action.currentUser,
+    })
+  ),
+  on(
+    logoutAction,
+    (): AuthStateInterface => ({ ...initialState, isLoggedIn: false })
+  )
 );
 
 export function reducer(state: AuthStateInterface, action: Action) {

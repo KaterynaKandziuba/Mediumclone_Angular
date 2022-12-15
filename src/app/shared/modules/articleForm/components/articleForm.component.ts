@@ -33,6 +33,8 @@ export class ArticleFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    const tags = this.form.get('tagList').value.split(' ');
+    this.form.get('tagList').setValue(tags);
     this.articleSubmitEvent.emit(this.form.value); // віддаємо дані форми зовнішнім компонентам
   }
 }
