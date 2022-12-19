@@ -1,0 +1,6 @@
+<button class="btn btn-sm" (click)="handleLike()"
+  [ngClass]=" { 'btn-primary': isFavorited, 'btn-outline-primary': !isFavorited }">
+  <i class="ion-heart"></i>
+  <!-- тут не використовуємо пропси, бо хочемо змінювати поле - two ways binding -->
+  <!-- усі інпути ми хендлимо як рідонлі -->
+  <span>&nbsp;{{ favoritesCount }}</span></button>
