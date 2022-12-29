@@ -5,6 +5,7 @@ import { ArticleStateInterface } from 'src/app/article/types/articleState.interf
 import { CreateArticleStateInterface } from 'src/app/createArticle/types/createArticleState.interface';
 import { EditArticleStateInterface } from 'src/app/editArticle/types/editArticleState.interface';
 import { SettingsStateInterface } from 'src/app/settings/store/types/settingsState.interface';
+import { UserProfileStateInterface } from 'src/app/userProfile/types/userProfileState.interface';
 
 // загальний інтерфейс усього стану
 export interface AppStateInterface {
@@ -15,4 +16,5 @@ export interface AppStateInterface {
   createArticle: CreateArticleStateInterface;
   editArticle: EditArticleStateInterface;
   settings: SettingsStateInterface;
+  userProfile: UserProfileStateInterface;
 }

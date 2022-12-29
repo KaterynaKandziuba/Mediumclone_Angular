@@ -57,27 +57,27 @@ export class FeedComponent implements OnInit, OnDestroy, OnChanges{
     }
 
     fetchFeed(): void {
-        const offset = this.currentPage * this.limit - this.limit;
-        const parsedUrl = parseUrl(this.apiUrlProps) // object with query and url
-        console.log('currentPage', this.currentPage)
-        console.log('parsedUrl', parsedUrl)
-        const stringifiedParams = stringify({
-            limit: this.limit,
-            offset,
-            ...parsedUrl.query
-        })
-        const apiUrlWithParams = `${parsedUrl.url}?${stringifiedParams}`
-        this.store.dispatch(getFeedAction({url: apiUrlWithParams}))
+      const offset = this.currentPage * this.limit - this.limit;
+      const parsedUrl = parseUrl(this.apiUrlProps); // object with query and url
+      console.log('parsedUrl', parsedUrl);
+      const stringifiedParams = stringify({
+        limit: this.limit,
+        offset,
+        ...parsedUrl.query,
+      });
+      const apiUrlWithParams = `${parsedUrl.url}?${stringifiedParams}`;
+      this.store.dispatch(getFeedAction({ url: apiUrlWithParams }));
     }
 
     initializeListeners(): void {
         // router automatically unsibscribe, async pipe too
         // but better unsubscribe - always
         // unsibscribe disposes the resources held by subscription
-        this.queryParamsSubscription = this.route.queryParams.subscribe((params: Params) => {
-            console.log('params', params) // page query params
-            this.currentPage = Number(params['page'] || '1') // 1 for case if no params
-            this.fetchFeed()
-        })
+        this.queryParamsSubscription = this.route.queryParams.subscribe(
+          (params: Params) => {
+            this.currentPage = Number(params['page'] || '1'); // 1 for case if no params
+            this.fetchFeed();
+          }
+        );
     }
 }
