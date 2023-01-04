@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { FeedModule } from '../shared/modules/feed/feed.module';
+import { FollowButtonModule } from '../shared/modules/followButton/followButton.module';
 import { UserProfileComponent } from './components/userProfile.component';
 import { GetUserProfileEffect } from './store/getUserProfile.effect';
 import { reducers } from './store/reducers';
@@ -27,6 +28,7 @@ const routes = [
     EffectsModule.forFeature([GetUserProfileEffect]),
     StoreModule.forFeature('userProfile', reducers),
     FeedModule,
+    FollowButtonModule,
   ],
   declarations: [UserProfileComponent],
   providers: [UserProfileService],

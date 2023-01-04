@@ -6,7 +6,7 @@
           <img src="user-image" [src]="userProfile.image" />
           <h4>{{userProfile.username}}</h4>
           <p>{{userProfile.bio}}</p>
-          <div *ngIf="!(isCurrentUserProfile$ | async)">FOLLOW USER BUTTON</div>
+          <mc-follow-button [username]="userProfile.username" *ngIf="!(isCurrentUserProfile$ | async)"></mc-follow-button>
           <a class="btn btn-sm btn-outline-secondary action-btn" [routerLink]="['/settings']"
             *ngIf="isCurrentUserProfile$ | async"> Edit Profile Settings </a>
         </div>
