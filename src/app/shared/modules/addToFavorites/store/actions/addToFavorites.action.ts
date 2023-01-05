@@ -8,10 +8,10 @@ export const addToFavoritesAction = createAction(
 );
 
 export const addToFavoritesSuccessAction = createAction(
-  ActionTypes.ADD_TO_FAVORITES,
+  ActionTypes.ADD_TO_FAVORITES_SUCCESS,
   props<{ article: ArticleInterface }>()
 );
 
 export const addToFavoritesFailureAction = createAction(
-  ActionTypes.ADD_TO_FAVORITES
+  ActionTypes.ADD_TO_FAVORITES_FAILURE
 );
