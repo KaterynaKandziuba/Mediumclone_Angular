@@ -1,10 +1,14 @@
 # MediumcloneAngular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.4.
+It uses external API of backend services.
+It is training project for demonstration of Angular and NgRx skills.
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+Run `npm run start:dev` for a dev server on 'http://localhost:3003/.
 
 ## Code scaffolding
 
@@ -26,8 +30,6 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
-ADDITIONAL FUNCTIONALITY
-- [USER PAGE] FOLLOW AND UNFOLLOW (LIKES AND DISLIKES)
-- [POST'S PAGE] FOLLOW AND UNFOLLOW + LIKE AND DISLIKE 
-- [POST'S PAGE] ADD COMMENTS + DELETE COMMENTS
-- [FEED] FIX BUG WITH ADD TO FAVORITES
+TODO:
+- [POST'S PAGE] add follow/unfollow and like/dislike functionality
+- [POST'S PAGE] add comment/delete comment functionality

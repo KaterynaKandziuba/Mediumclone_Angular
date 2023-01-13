@@ -30,13 +30,11 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    // надає доступ до директив та пайпів
+    // get access to directives and pipes
     CommonModule,
-    // використовуємо forChild, а не forRoot, коли реєструємо шляхи для внутрішніх модулів
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     StoreModule.forFeature('auth', reducer),
-    // в цьому модулі ефекти оновлюють наш стор
     EffectsModule.forFeature([
       RegisterEffect,
       LoginEffect,
@@ -46,9 +44,7 @@ const routes: Routes = [
     ]),
     BackendErrorMessagesModule,
   ],
-  // adds injectable objects
   providers: [AuthService, PersistanceService],
-  // які компоненти ми хочемо зареєструвати
   declarations: [RegisterComponent, LoginComponent],
 })
 export class AuthModule {}

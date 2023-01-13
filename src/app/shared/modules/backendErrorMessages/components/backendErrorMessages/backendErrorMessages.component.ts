@@ -9,7 +9,6 @@ export class BackendErrorMessagesComponent implements OnInit {
   // input property is binded to DOM property
   // during change detection Ng automatocally updates the data property
   // with the DOM property's value: the same as props in React
-  // намагаємся використовувати їх як рідонлі
   @Input('backendErrors') backendErrorsProps: BackendErrorsInterface;
 
   errorMessages: string[];

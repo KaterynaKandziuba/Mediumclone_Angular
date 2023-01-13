@@ -14,7 +14,6 @@ import { ErrorSelector, IsLoadingSelector } from '../store/selectors';
 })
 export class ArticleComponent implements OnInit, OnDestroy {
   slug: string;
-  // часто використовуємо у вьюсі, тому не хочемо всюди писати пайп
   article: ArticleInterface | null;
   articleSubcription: Subscription;
   isLoading$: Observable<boolean>;
@@ -30,7 +29,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // на моменті дестрою компоненту ми відписуємось
     this.articleSubcription.unsubscribe();
   }
 

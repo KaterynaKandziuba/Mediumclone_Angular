@@ -4,12 +4,12 @@ import { ActionTypes } from '../actionTypes';
 
 export const getUserProfileAction = createAction(
   ActionTypes.GET_USER_PROFILE,
-  props<{ slug: string }>() // тут вказали, що передаємо
+  props<{ slug: string }>()
 );
 
 export const getUserProfileSuccessAction = createAction(
   ActionTypes.GET_USER_PROFILE_SUCCESS,
-  props<{ userProfile: ProfileInterface }>() // тут вказали, що отримуємо
+  props<{ userProfile: ProfileInterface }>()
 );
 
 export const getUserProfileFailureAction = createAction(

@@ -6,9 +6,8 @@ import { BackendErrorsInterface } from '../../types/backendErrors.interface';
 
 export const registerAction = createAction(
   ActionTypes.REGISTER,
-  props<{request: RegisterRequestInterface}>()
-  // не можна просто передавати інтерфейс, тільки об'єкт
-  // бо екшн - це об'єкт
+  props<{ request: RegisterRequestInterface }>()
+  // object should be in props
 );
 
 export const registerSuccessAction = createAction(
@@ -17,6 +16,6 @@ export const registerSuccessAction = createAction(
 );
 
 export const registerFailureAction = createAction(
-  ActionTypes.REGISTER_FAILURE, 
+  ActionTypes.REGISTER_FAILURE,
   props<{errors: BackendErrorsInterface}>()
-  ); 
+  );

@@ -7,7 +7,6 @@ import {
 } from 'src/app/auth/store/actions/updateCurrentUser.action';
 import { SettingsStateInterface } from './types/settingsState.interface';
 
-// всі екшени у нас в auth, а тут ми на них тільки реагуємо
 const initialState: SettingsStateInterface = {
   isSubmitting: false,
   validationErrors: null,

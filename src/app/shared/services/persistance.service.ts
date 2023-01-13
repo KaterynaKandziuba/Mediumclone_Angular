@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core"
 /**
  * Ми хочемо, щоб дані про юзера зберігалися після перезавантаження сторінки.
- * Тому ми складаємо токен в локал сторедж. Звідти ми можемо його забрати 
+ * Тому ми складаємо токен в локал сторедж. Звідти ми можемо його забрати
  * і запитати сервер, чи токен ще валідний - зафетчити юзера.
  */
 
 
-// setter/getter для localStorage
+// setter/getter - localStorage
 @Injectable()
 export class PersistanceService {
     set(key: string, data: any): void {

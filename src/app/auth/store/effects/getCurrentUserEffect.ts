@@ -8,30 +8,29 @@ import { getCurrentUserAction, getCurrentUserFailureAction, getCurrentUserSucces
 
 @Injectable()
 export class GetCurrentUserEffect {
-    getCurrentUser$ = createEffect(() => this.actions$.pipe(
-        // ми викликаємо усі екшени і далі вибираємо з них тільки реджістер
-        ofType(getCurrentUserAction),
-        // деструкнуризуємо дані, дістаємо реквест і засовуємо в сервіс
-        switchMap(() => {
-            // нам є сенс запитувати юзера только у випадку, 
-            // якщо ми маємо токен: в іншому випадку юзер вперше на сайті - 
-            // ми не чіпаємо сервер.
-            const token = this.persistanceService.get('accessToken');
-            if(!token) {
-                return of(getCurrentUserFailureAction())
-            }
-            // тут відбувається очікування
-            return this.authService.getCurrentUser().pipe(
-                map((currentUser: CurrentUserInterface): any => {
-                    // ось тут ми оновили стор
-                    return getCurrentUserSuccessAction({currentUser})
-                }),
-                catchError(() => {
-                    return of(getCurrentUserFailureAction())
-                })
-            )
-        })
-    ))
+  getCurrentUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getCurrentUserAction),
+      switchMap(() => {
+        const token = this.persistanceService.get('accessToken');
+        if (!token) {
+          return of(getCurrentUserFailureAction());
+        }
+        return this.authService.getCurrentUser().pipe(
+          map((currentUser: CurrentUserInterface): any => {
+            return getCurrentUserSuccessAction({ currentUser });
+          }),
+          catchError(() => {
+            return of(getCurrentUserFailureAction());
+          })
+        );
+      })
+    )
+  );
 
-    constructor(private actions$: Actions, private authService: AuthService, private persistanceService: PersistanceService){}
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private persistanceService: PersistanceService
+  ) {}
 }

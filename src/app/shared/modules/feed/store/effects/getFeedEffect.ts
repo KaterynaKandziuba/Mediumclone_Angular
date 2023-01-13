@@ -8,22 +8,21 @@ import { getCurrentUserFailureAction } from '../../../../../auth/store/actions/g
 
 @Injectable()
 export class GetFeedEffect {
-    getFeed$ = createEffect(() => this.actions$.pipe(
-        // ми викликаємо усі екшени і далі вибираємо з них тільки реджістер
-        ofType(getFeedAction),
-        // деструкнуризуємо дані, дістаємо реквест і засовуємо в сервіс
-        switchMap(({url}) => {
-            return this.feedService.getFeed(url).pipe(
-                map((feed: GetFeedResponseInterface) => {
-                    // ось тут ми оновили стор
-                    return getFeedSuccessAction({feed})
-                }),
-                catchError(() => {
-                    return of(getCurrentUserFailureAction())
-                })
-            )
-        })
-    ))
+  getFeed$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getFeedAction),
+      switchMap(({ url }) => {
+        return this.feedService.getFeed(url).pipe(
+          map((feed: GetFeedResponseInterface) => {
+            return getFeedSuccessAction({ feed });
+          }),
+          catchError(() => {
+            return of(getCurrentUserFailureAction());
+          })
+        );
+      })
+    )
+  );
 
-    constructor(private actions$: Actions, private feedService: FeedService){}
+  constructor(private actions$: Actions, private feedService: FeedService) {}
 }

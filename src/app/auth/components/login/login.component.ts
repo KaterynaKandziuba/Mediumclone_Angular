@@ -9,50 +9,45 @@ import { validationErrorsSelector } from '../../store/selectors';
 import { BackendErrorsInterface } from '../../types/backendErrors.interface';
 
 @Component({
-  // префікс допомагає відрізняти сторонні бібліотеки від наших власних компонентів
   selector: 'mc-login',
   templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit {
   // tracks value + validity of group of form control instances
-  // змінна, де буде знаходитись наша форма
   form: FormGroup;
   isSubmitting$: Observable<boolean>;
-  backendErrors$: Observable<BackendErrorsInterface | null>
+  backendErrors$: Observable<BackendErrorsInterface | null>;
 
-  // why have we injected authService?
-  constructor(private fb: FormBuilder, private store: Store, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.initializeForm();
-    this.initializeValues()
+    this.initializeValues();
   }
 
   initializeValues(): void {
-      this.isSubmitting$ = this.store.pipe(select((store: AppStateInterface) => {
-          // store.select(isSubmittingSelector)
-          return store.auth.isSubmiting;
-      }))
+    this.isSubmitting$ = this.store.pipe(
+      select((store: AppStateInterface) => {
+        return store.auth.isSubmiting;
+      })
+    );
 
-      // errors don't update
-      //   (store: AppStateInterface)=> {
-      //     return store.auth.validationErrors
-      //  }
-      this.backendErrors$ = this.store.pipe(select(validationErrorsSelector))
-
-      // is updating, but app is not
-      this.backendErrors$.subscribe((errors: BackendErrorsInterface) => {});
+    this.backendErrors$ = this.store.pipe(select(validationErrorsSelector));
+    this.backendErrors$.subscribe((errors: BackendErrorsInterface) => {});
   }
 
   initializeForm(): void {
-      // group приймає об'єкт з полями нащої групи
-      this.form = this.fb.group({
-          email: '',
-          password: ''
-      })
+    this.form = this.fb.group({
+      email: '',
+      password: '',
+    });
   }
 
   onSubmit(): void {
-    this.store.dispatch(loginAction({request: this.form.value}))
+    this.store.dispatch(loginAction({ request: this.form.value }));
   }
 }

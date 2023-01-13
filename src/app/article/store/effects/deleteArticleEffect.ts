@@ -14,14 +14,10 @@ import {
 export class DeleteArticleEffect {
   deleteArticle$ = createEffect(() =>
     this.actions$.pipe(
-      // ми викликаємо усі екшени і далі вибираємо з них тільки потрібний нам
-      // далі ми чекаємо коли стор його задіспатчить
       ofType(deleteArticleAction),
-      // деструкнуризуємо дані, дістаємо реквест і засовуємо в сервіс
       switchMap(({ slug }) => {
         return this.articleService.deleteArticle(slug).pipe(
           map((article: ArticleInterface) => {
-            // ось тут ми оновили стор
             // effect automatically dispatches this action
             // switchMap returns dispatch action
             return deleteArticleSuccessAction();
@@ -36,7 +32,6 @@ export class DeleteArticleEffect {
 
   redirectAfterDelete$ = createEffect(
     () => {
-      // because we want to be sure that article is actually deleted
       return this.actions$.pipe(
         ofType(deleteArticleSuccessAction),
         // just "do something" function
@@ -45,7 +40,7 @@ export class DeleteArticleEffect {
         })
       );
     },
-    // щоб не зависла сторінка і жоден екшн не диспатчився
+    // not to get stuck
     { dispatch: false }
   );
 

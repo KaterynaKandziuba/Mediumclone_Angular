@@ -7,7 +7,6 @@ import { EditArticleStateInterface } from 'src/app/editArticle/types/editArticle
 import { SettingsStateInterface } from 'src/app/settings/store/types/settingsState.interface';
 import { UserProfileStateInterface } from 'src/app/userProfile/types/userProfileState.interface';
 
-// загальний інтерфейс усього стану
 export interface AppStateInterface {
   auth: AuthStateInterface;
   feed: FeedStateInterface;

@@ -9,43 +9,44 @@ import { validationErrorsSelector } from '../../store/selectors';
 import { BackendErrorsInterface } from '../../types/backendErrors.interface';
 
 @Component({
-  // префікс допомагає відрізняти сторонні бібліотеки від наших власних компонентів
   selector: 'mc-register',
   templateUrl: './register.component.html',
 })
 export class RegisterComponent implements OnInit {
-  // tracks value + validity of group of form control instances
-  // змінна, де буде знаходитись наша форма
   form: FormGroup;
   isSubmitting$: Observable<boolean>;
-  backendErrors$: Observable<BackendErrorsInterface | null>
+  backendErrors$: Observable<BackendErrorsInterface | null>;
 
-  constructor(private fb: FormBuilder, private store: Store, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.initializeForm();
-    this.initializeValues()
+    this.initializeValues();
   }
 
   initializeValues(): void {
-      this.isSubmitting$ = this.store.pipe(select((store: AppStateInterface) => {
-          // store.select(isSubmittingSelector)
-          return store.auth.isSubmiting;
-      }))
+    this.isSubmitting$ = this.store.pipe(
+      select((store: AppStateInterface) => {
+        return store.auth.isSubmiting;
+      })
+    );
 
-      this.backendErrors$ = this.store.pipe(select(validationErrorsSelector))
+    this.backendErrors$ = this.store.pipe(select(validationErrorsSelector));
   }
 
   initializeForm(): void {
-      // group приймає об'єкт з полями нащої групи
-      this.form = this.fb.group({
-          username: ['', Validators.required],
-          email: '',
-          password: ''
-      })
+    this.form = this.fb.group({
+      username: ['', Validators.required],
+      email: '',
+      password: '',
+    });
   }
 
   onSubmit(): void {
-    this.store.dispatch(registerAction({request: this.form.value}))
+    this.store.dispatch(registerAction({ request: this.form.value }));
   }
 }

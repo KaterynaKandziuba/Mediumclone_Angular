@@ -4,7 +4,7 @@ import { ActionTypes } from '../actionTypes';
 
 export const getArticleAction = createAction(
   ActionTypes.GET_ARTICLE,
-  props<{ slug: string }>() // передаємо на вхід в нашому put request
+  props<{ slug: string }>()
 );
 
 export const getArticleSuccessAction = createAction(
@@ -12,6 +12,4 @@ export const getArticleSuccessAction = createAction(
   props<{ article: ArticleInterface }>()
 );
 
-export const getArticleFailureAction = createAction(
-  ActionTypes.GET_ARTICLE_FAILURE
-); // ми не вказуємо еррори, бо не маємо уявлення що отримаємо для GET request
+export const getArticleFailureAction = createAction(ActionTypes.GET_ARTICLE_FAILURE);

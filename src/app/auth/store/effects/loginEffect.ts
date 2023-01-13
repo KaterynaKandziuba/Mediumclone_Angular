@@ -10,38 +10,41 @@ import { loginAction, loginFailureAction, loginSuccessAction } from '../actions/
 
 @Injectable()
 export class LoginEffect {
-    login$ = createEffect(() => this.actions$.pipe(
-        // ми викликаємо усі екшени і далі вибираємо з них тільки реджістер
-        ofType(loginAction),
-        // деструкнуризуємо дані, дістаємо реквест і засовуємо в сервіс
-        switchMap(({request}) => {
-            // тут відбувається очікування
-            return this.authService.login(request).pipe(
-                map((currentUser: CurrentUserInterface): any => {
-                    this.persistanceService.set('accessToken', currentUser.token)
-                    // ефект диспатчить успішний логін для редьюсера та оновлює цим стор
-                    return loginSuccessAction({currentUser})
-                }),
-                // ефект диспатчить неуспішний логін для редьюсера та оновлює цим ерори
-                catchError((errorResponce: HttpErrorResponse): any => {
-                    return of(loginFailureAction({errors: errorResponce.error}))
-                })
-            )
-        })
-    ))
+  login$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loginAction),
+      switchMap(({ request }) => {
+        return this.authService.login(request).pipe(
+          map((currentUser: CurrentUserInterface): any => {
+            this.persistanceService.set('accessToken', currentUser.token);
+            return loginSuccessAction({ currentUser });
+          }),
+          catchError((errorResponce: HttpErrorResponse): any => {
+            return of(loginFailureAction({ errors: errorResponce.error }));
+          })
+        );
+      })
+    )
+  );
 
-    redirectAfterSubmit$ = createEffect(() => this.actions$.pipe(
+  redirectAfterSubmit$ = createEffect(
+    () =>
+      this.actions$.pipe(
         ofType(loginSuccessAction),
-        // тут ми не можемо повернути жодного екшена
-        // tap створений для роботи з side-effects
         tap(() => {
-            this.router.navigateByUrl('/')
+          this.router.navigateByUrl('/');
         })
-    ), {
-        // avoiding memory leak
-        dispatch: false
-    })
+      ),
+    {
+      // avoiding memory leak
+      dispatch: false,
+    }
+  );
 
-    constructor(private actions$: Actions, private authService: AuthService, private persistanceService: PersistanceService, 
-        private router: Router){}
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private persistanceService: PersistanceService,
+    private router: Router
+  ) {}
 }

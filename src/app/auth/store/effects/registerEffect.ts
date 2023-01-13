@@ -10,35 +10,40 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class RegisterEffect {
-    register$ = createEffect(() => this.actions$.pipe(
-        // ми викликаємо усі екшени і далі вибираємо з них тільки реджістер
-        ofType(registerAction),
-        // деструкнуризуємо дані, дістаємо реквест і засовуємо в сервіс
-        switchMap(({request}) => {
-            // тут відбувається очікування
-            return this.authService.register(request).pipe(
-                map((currentUser: CurrentUserInterface): any => {
-                    this.persistanceService.set('accessToken', currentUser.token)
-                    return registerSuccessAction({currentUser})
-                }),
-                catchError((errorResponce: HttpErrorResponse): any => {
-                    return of(registerFailureAction({errors: errorResponce.error}))
-                })
-            )
-        })
-    ))
+  register$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(registerAction),
+      switchMap(({ request }) => {
+        return this.authService.register(request).pipe(
+          map((currentUser: CurrentUserInterface): any => {
+            this.persistanceService.set('accessToken', currentUser.token);
+            return registerSuccessAction({ currentUser });
+          }),
+          catchError((errorResponce: HttpErrorResponse): any => {
+            return of(registerFailureAction({ errors: errorResponce.error }));
+          })
+        );
+      })
+    )
+  );
 
-    redirectAfterSubmit$ = createEffect(() => this.actions$.pipe(
+  redirectAfterSubmit$ = createEffect(
+    () =>
+      this.actions$.pipe(
         ofType(registerSuccessAction),
-        // тут ми не можемо повернути жодного екшена
         tap(() => {
-            this.router.navigateByUrl('/')
+          this.router.navigateByUrl('/');
         })
-    ), {
-        // avoiding memory leak
-        dispatch: false
-    })
+      ),
+    {
+      dispatch: false,
+    }
+  );
 
-    constructor(private actions$: Actions, private authService: AuthService, private persistanceService: PersistanceService, 
-        private router: Router){}
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private persistanceService: PersistanceService,
+    private router: Router
+  ) {}
 }

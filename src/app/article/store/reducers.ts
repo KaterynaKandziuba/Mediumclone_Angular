@@ -18,8 +18,6 @@ const articleReducer = createReducer(
       isLoading: true,
     })
   ),
-
-  // reducer прийому даних
   on(
     getArticleSuccessAction,
     (state, action): ArticleStateInterface => ({
@@ -37,8 +35,7 @@ const articleReducer = createReducer(
     })
   ),
 
-  // якщо ми переходимо за посиланням, то онулюємо початковий стейт
-  // якщо цього не буде, то ми постійно будемо отримувати той самий пост, навіть клікаючи на інші пости
+  // without it we will get the same post even when click on other posts
   on(routerNavigationAction, (): ArticleStateInterface => initialState)
 );
 

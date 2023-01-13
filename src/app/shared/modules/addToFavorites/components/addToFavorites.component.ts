@@ -20,9 +20,7 @@ export class AddToFavoritesComponent implements OnInit {
     this.isFavorited = this.isFavoritedProps;
   }
 
-  // використовуємо optimistic updates підхід,
-  // тобто юзеру ми показуємо, що все гуд, навіть якщо самі не знаємо відповідь сервера
-  // тут ми також не чекаємо на позитивну відповідь сервера та не апдейтимо стейт
+  // optimistic updates approach
   handleLike() {
     this.store.dispatch(
       addToFavoritesAction({

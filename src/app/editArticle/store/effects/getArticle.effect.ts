@@ -14,7 +14,6 @@ export class GetArticleEffect {
   createArticle$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getArticleAction),
-      // тут ми беремо останнє випущене значення і обробляємо його у внутрішньому промісі
       switchMap(({ slug }) => {
         return this.sharedArticleService.getArticle(slug).pipe(
           map((article: ArticleInterface): any => {

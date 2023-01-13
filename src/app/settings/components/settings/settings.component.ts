@@ -45,7 +45,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
       .pipe(select(CurrentUserSelector), filter(Boolean))
       .subscribe((currentUser: CurrentUserInterface) => {
         this.currentUser = currentUser;
-        // ми можемо ініціалізувати форму тільки після того, як отримали дані поточного юзера
+        // initializing form after getting current user
         this.initializeFrom();
       });
   }

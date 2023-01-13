@@ -13,7 +13,6 @@ import { PaginationModule } from '../pagination/pagination.module';
 import { TagListModule } from '../tagList/lagList.module';
 import { AddToFavoritesModule } from '../addToFavorites/addToFavorites.module';
 
-// немає рута, бо це шеребл компонент
 @NgModule({
   imports: [
     CommonModule,
@@ -27,7 +26,6 @@ import { AddToFavoritesModule } from '../addToFavorites/addToFavorites.module';
     AddToFavoritesModule,
   ],
   declarations: [FeedComponent],
-  // бо ми хочемо рендерити компонент в глобальному фіді
   exports: [FeedComponent],
   providers: [FeedService],
 })

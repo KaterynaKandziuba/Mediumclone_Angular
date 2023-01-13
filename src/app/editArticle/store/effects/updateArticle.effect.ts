@@ -16,7 +16,6 @@ export class UpdateArticleEffect {
   createArticle$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateArticleAction),
-      // тут ми беремо останнє випущене значення і обробляємо його у внутрішньому промісі
       switchMap(({ articleInput: ArticleInputInterface, slug }) => {
         return this.editArticleService
           .updateArticle(slug, ArticleInputInterface)
@@ -38,7 +37,6 @@ export class UpdateArticleEffect {
     )
   );
 
-  // ми хочемо перекинути юзера не на хоум пейдж, а на сторінку з постом
   redirectAfterUpdate$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -48,7 +46,6 @@ export class UpdateArticleEffect {
         })
       ),
     {
-      // avoiding memory leak, nothing to dispatch!
       dispatch: false,
     }
   );

@@ -1,7 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { combineLatest, filter, map, Observable, Subscription } from 'rxjs';
+import {
+  combineLatest,
+  filter,
+  last,
+  map,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import { AppStateInterface } from 'src/app/auth/shared/types/appState.interface';
 import { CurrentUserInterface } from 'src/app/auth/shared/types/currentUser.interface';
 import { ProfileInterface } from 'src/app/auth/shared/types/profile.interface';
 import { CurrentUserSelector } from 'src/app/auth/store/selectors';
@@ -16,14 +24,14 @@ import {
   selector: 'mc-user-profile',
   templateUrl: './userProfile.component.html',
 })
-export class UserProfileComponent implements OnInit, OnDestroy {
+export class UserProfileComponent implements OnInit, DoCheck, OnDestroy {
   userProfile: ProfileInterface;
   isLoading$: Observable<boolean>;
   error$: Observable<string | null>;
   userProfileSubscription: Subscription;
   slug: string;
   apiUrl: string;
-  isCurrentUserProfile$: Observable<boolean>; // чи є поточний користувач юзер-профілем, який ми бачимо
+  isCurrentUserProfile$: Observable<boolean>;
 
   constructor(
     private store: Store,
@@ -34,7 +42,18 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initializeValues();
     this.initializeListeners();
-    this.fetchData();
+  }
+
+  // TODO: change the way to update "following" status for inner follow button
+  ngDoCheck(): void {
+    this.userProfileSubscription = this.store
+      .pipe(
+        select((state: AppStateInterface) => state.userProfile.data),
+        filter(Boolean)
+      )
+      .subscribe((userProfile: ProfileInterface) => {
+        this.userProfile = userProfile;
+      });
   }
 
   ngOnDestroy(): void {
@@ -42,14 +61,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   initializeValues(): void {
-    const isFavorites = this.router.url.includes('favorites'); // через роутер отримуємо доступ до урли
+    const isFavorites = this.router.url.includes('favorites');
     this.slug = this.route.snapshot.paramMap.get('slug');
     this.isLoading$ = this.store.pipe(select(isLoadingSelector));
     this.error$ = this.store.pipe(select(errorSelector));
     this.getApiUrl();
-    // комбінуємо декілька стрімів, щоб отримати якусь відповідь
+    // combining some streams to make a proper comparison
     this.isCurrentUserProfile$ = combineLatest(
-      this.store.pipe(select(CurrentUserSelector), filter(Boolean)), // щоб 100% не було нуллів
+      this.store.pipe(select(CurrentUserSelector), filter(Boolean)), // insure against nulls
       this.store.pipe(select(userProfileSelector), filter(Boolean))
     ).pipe(
       map(
@@ -68,26 +87,18 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   getApiUrl(): string {
-    const isFavorites = this.router.url.includes('favorites'); // через роутер отримуємо доступ до урли
+    const isFavorites = this.router.url.includes('favorites'); // getting access to url
     return (this.apiUrl = isFavorites
       ? `/articles?favorited=${this.slug}`
       : `/articles?author=${this.slug}`);
   }
 
   initializeListeners(): void {
-    this.userProfileSubscription = this.store
-      .pipe(select(userProfileSelector))
-      .subscribe((userProfile: ProfileInterface) => {
-        this.userProfile = userProfile;
-      });
-
     this.route.params.subscribe((params) => {
-      // ми маємо перефетчувати дані, щоб оновлювалася стрічка для різних профілів
-      // механізм ангуляру не перефетчує дані для внутрішніх компонентів
-      // але перед цим ми маємо оновити слаг, а потім апі урлу
+      // we need to refetch data to update feed for different profiles
+      // before this slug should be updated
       this.slug = params['slug'];
       this.fetchData();
-      console.log('Params from route', params);
     });
   }
 }

@@ -16,7 +16,6 @@ const feedReducer = createReducer(
         isLoading: true
     })),
 
-    // reducer прийому даних
     on(getFeedSuccessAction, (state, action): FeedStateInterface => ({
         ...state,
         isLoading: false,

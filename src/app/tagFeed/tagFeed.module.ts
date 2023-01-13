@@ -8,12 +8,11 @@ import { PopularTagsModule } from "../shared/modules/popularTags/popularTags.mod
 import { TagFeedComponent } from "./component/tagFeed.component";
 
 const routes = [
-    // замість слагу може бути будь-яка змінна і ми можемо її прочитати і компоненті
-    {
-        path: 'tags/:slug',
-        component: TagFeedComponent
-    }
-]
+  {
+    path: 'tags/:slug',
+    component: TagFeedComponent,
+  },
+];
 
 @NgModule({
     imports: [

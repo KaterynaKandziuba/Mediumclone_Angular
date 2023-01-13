@@ -6,8 +6,6 @@ import { getCurrentUserAction, getCurrentUserSuccessAction, getCurrentUserFailur
 import { updateCurrentUserSuccessAction } from './actions/updateCurrentUser.action';
 import { logoutAction } from './actions/sync.action';
 
-// слідкують за екшенами та змінюють store
-
 export const initialState: AuthStateInterface = {
   isSubmiting: false,
   isLoading: false,
@@ -16,7 +14,6 @@ export const initialState: AuthStateInterface = {
   validationErrors: null,
 };
 
-// робимо редьюсери під окремі фічі
 const authReducer = createReducer(
   initialState,
   on(
@@ -24,7 +21,7 @@ const authReducer = createReducer(
     (state): AuthStateInterface => ({
       ...state,
       isSubmiting: true,
-      validationErrors: null, // це потрібно, щоб спочатку видалити ті помилки, які вже в нас є
+      validationErrors: null,
     })
   ),
   on(
@@ -90,12 +87,10 @@ const authReducer = createReducer(
       ...state,
       isLoading: false,
       isLoggedIn: false,
-      // про всяк випадок, щоб знати, що юзер занульований
       currentUser: null,
     })
   ),
   on(
-    // ми повністю оновлюватимемо стейт відповідно до екшенів на сторінці налаштувань
     updateCurrentUserSuccessAction,
     (state, action): AuthStateInterface => ({
       ...state,

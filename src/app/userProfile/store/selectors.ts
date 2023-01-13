@@ -9,8 +9,6 @@ export const userProfileFeatureSelector = createFeatureSelector<
   UserProfileStateInterface
 >('userProfile');
 
-// якщо ми пишемо селектор для модуля, що всередині,
-// то ми тількі всередині можемо його використовувати
 export const isLoadingSelector = createSelector(
   userProfileFeatureSelector,
   (userProfileState: UserProfileStateInterface) => userProfileState.isLoading

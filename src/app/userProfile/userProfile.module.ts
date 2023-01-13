@@ -16,7 +16,7 @@ const routes = [
     component: UserProfileComponent,
   },
   {
-    path: 'profiles/:slug/favorites', // всередині компоненту, залежно від шляху в урлі, ми будемо визначати апі урлу
+    path: 'profiles/:slug/favorites',
     component: UserProfileComponent,
   },
 ];

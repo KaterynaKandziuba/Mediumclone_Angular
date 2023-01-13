@@ -8,7 +8,6 @@ import { AddToFavoritesEffect } from './store/addToFavorites.effect';
 @NgModule({
   imports: [CommonModule, EffectsModule.forFeature([AddToFavoritesEffect])],
   declarations: [AddToFavoritesComponent],
-  // додаємо компонент в експорти, бо хочемо його використовувати назовні, в інших модулях
   exports: [AddToFavoritesComponent],
   providers: [addToFavoritesService],
 })

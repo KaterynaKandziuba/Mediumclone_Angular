@@ -7,10 +7,10 @@ import { getCurrentUserAction } from './auth/store/actions/getCurrentUser.action
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
-  constructor(private store: Store){}
+  constructor(private store: Store) {}
 
-  // нам потрібне місце у додатку, де ми будемо диспатчити юзера для всіх компонентів
+  // current user is needed for all compoonents
   ngOnInit(): void {
-    this.store.dispatch(getCurrentUserAction())
+    this.store.dispatch(getCurrentUserAction());
   }
 }

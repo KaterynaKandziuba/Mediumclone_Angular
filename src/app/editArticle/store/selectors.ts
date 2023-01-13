@@ -8,8 +8,6 @@ export const editArticleFeatureSelector = createFeatureSelector<
   EditArticleStateInterface
 >('editArticle');
 
-// якщо ми пишемо селектор для модуля, що всередині,
-// то ми тількі всередині можемо його використовувати
 export const isSubmittingSelector = createSelector(
   editArticleFeatureSelector,
   (editArticleState: EditArticleStateInterface) => editArticleState.isSubmitting

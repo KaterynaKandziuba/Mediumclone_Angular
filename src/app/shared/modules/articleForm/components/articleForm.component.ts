@@ -28,13 +28,13 @@ export class ArticleFormComponent implements OnInit {
       title: this.initialValuesProps.title,
       description: this.initialValuesProps.description,
       body: this.initialValuesProps.body,
-      tagList: this.initialValuesProps.tagList.join(' '), //  потрібно буде конвертувати в масив, адже для інпута це лише стрінга
+      tagList: this.initialValuesProps.tagList.join(' '),
     });
   }
 
   onSubmit(): void {
     const tags = this.form.get('tagList').value.split(' ');
     this.form.get('tagList').setValue(tags);
-    this.articleSubmitEvent.emit(this.form.value); // віддаємо дані форми зовнішнім компонентам
+    this.articleSubmitEvent.emit(this.form.value); // give data to outter components
   }
 }

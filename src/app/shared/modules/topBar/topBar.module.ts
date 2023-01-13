@@ -4,9 +4,8 @@ import { TopBarComponent } from "./components/topBar.component";
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-    imports: [CommonModule, RouterModule],
-    declarations: [TopBarComponent],
-    // ми хочемо використовувати компонент поза модулем
-    exports: [TopBarComponent]
+  imports: [CommonModule, RouterModule],
+  declarations: [TopBarComponent],
+  exports: [TopBarComponent],
 })
 export class TopBarModule {}

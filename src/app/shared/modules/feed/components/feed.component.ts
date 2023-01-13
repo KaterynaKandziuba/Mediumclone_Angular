@@ -25,7 +25,6 @@ export class FeedComponent implements OnInit, OnDestroy, OnChanges{
 
     constructor(private store: Store, private router: Router, private route: ActivatedRoute){}
 
-    // компонент має зафетчити дані під час ініціалізації
     ngOnInit(): void {
         this.initializeValues()
         this.initializeListeners()

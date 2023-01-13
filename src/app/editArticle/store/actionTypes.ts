@@ -7,6 +7,4 @@ export enum ActionTypes {
   GET_ARTICLE_SUCCESS = '[Get Article] Get Article Success',
   GET_ARTICLE_FAILURE = '[Get Article] Get Article Failure',
 }
-// всі екшени глобальні, і якщо ми викликаємо get article і не важливо на якій сорінці,
-// то він буде викликаний для всього додатку і в усіх редьюсерах
-// ми будемо міняти стан нашої сторінки, навіть якщо ми на сторінці читання (не редагування)
+// actions are global

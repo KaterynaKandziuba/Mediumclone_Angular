@@ -7,22 +7,24 @@ import { GetPopularTagsResponseInterface } from '../types/getPopularTagsResponse
 
 @Injectable()
 export class GetPopularTagsEffect {
-    getFeed$ = createEffect(() => this.actions$.pipe(
-        // ми викликаємо усі екшени і далі вибираємо з них тільки реджістер
-        ofType(getPopularTagsAction),
-        // деструкнуризуємо дані, дістаємо реквест і засовуємо в сервіс
-        switchMap(({url}) => {
-            return this.popularTagsService.getPopularTags(url).pipe(
-                map((response: GetPopularTagsResponseInterface) => {
-                    // ось тут ми оновили стор
-                    return getPopularTagsSuccessAction(response)
-                }),
-                catchError(() => {
-                    return of(getPopularTagsFailureAction())
-                })
-            )
-        })
-    ))
+  getFeed$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getPopularTagsAction),
+      switchMap(({ url }) => {
+        return this.popularTagsService.getPopularTags(url).pipe(
+          map((response: GetPopularTagsResponseInterface) => {
+            return getPopularTagsSuccessAction(response);
+          }),
+          catchError(() => {
+            return of(getPopularTagsFailureAction());
+          })
+        );
+      })
+    )
+  );
 
-    constructor(private actions$: Actions, private popularTagsService: PopularTagsService){}
+  constructor(
+    private actions$: Actions,
+    private popularTagsService: PopularTagsService
+  ) {}
 }

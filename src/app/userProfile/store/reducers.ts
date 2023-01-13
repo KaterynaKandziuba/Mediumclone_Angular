@@ -2,6 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { UserProfileStateInterface } from '../types/userProfileState.interface';
 import {
   getUserProfileAction,
+  getUserProfileFailureAction,
   getUserProfileSuccessAction,
 } from './actions/getUserProfile.action';
 
@@ -29,7 +30,7 @@ const userProfileReducer = createReducer(
     })
   ),
   on(
-    getUserProfileAction,
+    getUserProfileFailureAction,
     (state): UserProfileStateInterface => ({
       ...state,
       isLoading: false,

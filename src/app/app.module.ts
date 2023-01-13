@@ -12,7 +12,7 @@ import { PersistanceService } from './shared/services/persistance.service';
 import { AuthInterceptor } from './auth/shared/services/authInterceptor.service';
 import { GlobalFeedModule } from './globalFeed/globalFeed.module';
 import { TopBarModule } from './shared/modules/topBar/topBar.module';
-// library helps to create redux actions
+// library helps to watch actions
 import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { YourFeedModule } from './yourFeed/yourFeed.module';
 import { TagFeedModule } from './tagFeed/tagFeed.module';
@@ -25,7 +25,6 @@ import { UserProfileModule } from './userProfile/userProfile.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    // includes CommonModule и ApplicationModule
     BrowserModule,
     AppRoutingModule,
     AuthModule,
@@ -35,8 +34,8 @@ import { UserProfileModule } from './userProfile/userProfile.module';
     }),
     StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({
-      maxAge: 25, // кількість екшенів, які ми хочемо показувати в наших девтулз
-      logOnly: environment.production, // лог на продакшині буде тільки рід-онлі
+      maxAge: 25, // action number in dev tools
+      logOnly: environment.production, // readonly for prod
     }),
     TopBarModule,
     HttpClientModule,
@@ -44,20 +43,17 @@ import { UserProfileModule } from './userProfile/userProfile.module';
     YourFeedModule,
     TagFeedModule,
     CreateArticleModule,
-    // ставимо перед ArticleModule, щоб не було колізії зі шляхами
+    // order for routes
     ArticleModule,
     EditArticleModule,
     SettingsModule,
     UserProfileModule,
   ],
   providers: [
-    // ніде автоматично не реєструється, тому нам необхідно додавати його в той модуль,
-    // де ми його використовуємо - в даному разі інтерсептор всередині app.module
     PersistanceService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      // цей запис, щоб показати, що в нас мультипровайдер
       multi: true,
     },
   ],

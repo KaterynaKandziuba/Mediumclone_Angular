@@ -9,8 +9,6 @@ export const feedFeatureSelector = createFeatureSelector<
   FeedStateInterface
 >('feed');
 
-// якщо ми пишемо селектор для модуля, що всередині, 
-// то ми тількі всередині можемо його використовувати
 export const isLoadingSelector = createSelector(
   feedFeatureSelector,
   (feedState: FeedStateInterface) => feedState.isLoading
